@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Goa Ticket Giveaway - UMA International</title>
+    <style>
+        /* Global styles for hacker theme */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0f0f0f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #00ff00; /* Neon green for hacker effect */
+            animation: backgroundChange 10s infinite alternate;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff9800; /* Indian flag orange */
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subheader {
+            font-size: 24px;
+            color: #009688; /* Indian flag green */
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .message {
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .footer {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        .footer a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Background color change */
+        @keyframes backgroundChange {
+            0% { background-color: #1b5e20; }
+            25% { background-color: #f44336; }
+            50% { background-color: #2196f3; }
+            75% { background-color: #ffc107; }
+            100% { background-color: #0d47a1; }
+        }
+
+        /* Game section */
+        .game-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ff00;
+        }
+
+        .game-container h3 {
+            margin-bottom: 20px;
+            color: #00ff00;
+            text-transform: uppercase;
+            font-size: 26px;
+        }
+
+        .game-button {
+            background-color: #ff5722; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .game-button:hover {
+            background-color: #ff9800;
+        }
+
+        .game-result {
+            font-size: 22px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .game-input {
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin-top: 20px;
+            background-color: #555;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 30px;
+            width: 100%;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background-color: #4CAF50;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .sold-out {
+            font-size: 22px;
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            UMA INTERNATIONAL 2025
+        </div>
+        <div class="subheader">
+            Your Ticket to Goa Awaits
+        </div>
+        <div class="message">
+            Welcome to UMA International's Goa ticket giveaway! Enter the correct code to win a Goa ticket. There are only <span id="ticketCount">1000</span> tickets available. Will you be the lucky one?
+        </div>
+
+        <div class="game-container">
+            <h3>Enter Code to Win!</h3>
+            <input type="text" class="game-input" id="userCode" placeholder="Enter your code" />
+            <button class="game-button" onclick="playGame()">Submit Code</button>
+            <div class="game-result" id="gameResult"></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by <strong>UMA International</strong></p>
+            <a href="https://www.uma-international.com" target="_blank">Visit Our Website</a>
+        </div>
+    </div>
+
+    <script>
+        let ticketsAvailable = 1000;  // Track number of tickets left
+        const winningCodes = generateWinningCodes(1000);  // Generate 1000 winning codes
+
+        function generateWinningCodes(numberOfCodes) {
+            const codes = [];
+            for (let i = 0; i < numberOfCodes; i++) {
+                codes.push("GOA" + (Math.floor(Math.random() * 9999) + 1000)); // Generate unique codes like GOA3456
+            }
+            return codes;
+        }
+
+        function playGame() {
+            const userCode = document.getElementById("userCode").value;
+            const gameResult = document.getElementById("gameResult");
+            const ticketCount = document.getElementById("ticketCount");
+            const progressBar = document.getElementById("progressBar");
+
+            if (ticketsAvailable <= 0) {
+                gameResult.textContent = "Sorry, all tickets have been claimed!";
+                gameResult.style.color = "#ff5722"; // Red for failure
+                return;
+            }
+
+            if (winningCodes.includes(userCode)) {
+                ticketsAvailable--;  // Decrease the number of available tickets
+                ticketCount.textContent = ticketsAvailable; // Update the displayed ticket count
+
+                gameResult.textContent = `Congratulations! You won a Goa ticket!`;
+                gameResult.style.color = "#4CAF50"; // Green for success
+
+                // Update the progress bar
+                let progress = ((1000 - ticketsAvailable) / 1000) * 100;
+                progressBar.style.width = progress + "%";
+            } else {
+                gameResult.textContent = "Incorrect code! Try again.";
+                gameResult.style.color = "#ff5722"; // Red for failure
+            }
+
+            document.getElementById("userCode").value = ""; // Clear input field
+        }
+    </script>
+
+</body>
+</html>
